@@ -26,7 +26,7 @@ def generate_response(prompt, model, max_tokens, temperature, top_p):
     # return response['choices'][0]['text']
     messages = [{"role": "user", "content": prompt}]
     response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model=model,
         messages=messages,
         temperature=0.99,
         frequency_penalty=0.3, # a number between 0 and 1. The higher this value the model will make a bigger effort in not repeating itself.
