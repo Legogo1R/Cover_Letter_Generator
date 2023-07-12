@@ -1,0 +1,1 @@
+All text is imported from localization.json in different languages

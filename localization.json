@@ -1,0 +1,114 @@
+{
+    "sidebar_h1": {
+        "en": "Model parameters",
+        "ru": "Параметры модели"
+    },
+    "gpt3_model": {
+        "en": "GPT-3 Model",
+        "ru": "Модель GPT-3"
+    },
+    "sidebar_m1": {
+        "en": "**Note:** Model descriptions are on [OpenAI](https://beta.openai.com/docs) website",
+        "ru": "**Заметка:** Описание моделей представлено на сайте [OpenAI](https://beta.openai.com/docs)"
+    },
+    "max_tokens": {
+        "en": "Maximum number of tokens:",
+        "ru": "Максимальное число токенов:"
+    },
+    "sidebar_h2": {
+        "en": "Additional Parameters:",
+        "ru": "Дополнительные параметры:"
+    },
+    "sidebar_w1": {
+        "en": "Only change these if you want to add specific parameter information to the model!",
+        "ru": "Меняйте данные параметры только в случае, если вы хотите добавить определенную информацию в модель!"
+    },
+    "temperature": {
+        "en": "Temperature: ",
+        "ru": "Температура: "
+    },
+    "top_p": {
+        "en": "Top P: ",
+        "ru": "Top P: "
+    },
+    "main_title1": {
+        "en": "Generate your own cover letter",
+        "ru": "Сгенерируй свое собственное сопроводительное письмо"
+    },
+    "main_radio1_label": {
+        "en": "Input data",
+        "ru": "Ввод информации"
+    },
+    "main_radio1_choices": {
+        "en": ["Automatic", "By hand"],
+        "ru": ["Автоматически", "Вручную"]
+    },
+    "auto_job_tabs_label": {
+        "en": ["Input", "Data"],
+        "ru": ["Ввод", "Данные"]
+    },
+    "auto_job_tab1_h1": {
+        "en": "Extract data from..",
+        "ru": "Извлечь данные из.."
+    },
+    "job_url": {
+        "en": "Job posting url:",
+        "ru": "Ссылка на вакансию:"
+    },
+    "cv_pdf": {
+        "en": "Add CV (curriculum vitae) PDF file:",
+        "ru": "Добавьте резюме в PDF формате:"
+    },
+    "auto_job_tab2_b1": {
+        "en": "Update data",
+        "ru": "Обновить данные"
+    },
+    "auto_job_tab2_cb1": {
+        "en": "Allow edit",
+        "ru": "Разрешить редактирование"
+    },
+    "job_form_h1": {
+        "en": "Job",
+        "ru": "Вакансия"
+    },
+    "company_name": {
+        "en": "Company Name",
+        "ru": "Название компании"
+    },
+    "aplying_role": {
+        "en": "What role are you aplying for?",
+        "ru": "На какую вакансию вы подаетесь?"
+    },
+    "job_description": {
+        "en": "Job description",
+        "ru": "Описание вакансии"
+    },
+    "emailing_to": {
+        "en": "Who are you writing to?",
+        "ru": "Кому адресовано это письмо?"
+    },
+    "job_form_h2": {
+        "en": "About yourself",
+        "ru": "О себе"
+    },
+    "your_name": {
+        "en": "What is yor name?",
+        "ru": "Как вас зовут?"
+    },
+    "experience_in": {
+        "en": "I have experience in..",
+        "ru": "У меня есть опыт в.."
+    },
+    "excitement": {
+        "en": "I am excited about this job because..",
+        "ru": "Я заинтересован в данной вакансии потому что.."
+    },
+    "passione": {
+        "en": "I am passionate about..",
+        "ru": "Я сильно увлечен.."
+    },
+    "form_submit_button": {
+        "en": "Generate",
+        "ru": "Сгенерировать"
+    }
+}

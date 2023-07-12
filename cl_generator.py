@@ -4,6 +4,7 @@ import numpy as np
 import openai
 import os
 import time
+import json
 
 # Get your GPT API key here
 with open('gpt_key.txt', 'r') as txt:
@@ -33,6 +34,10 @@ def generate_response(prompt, model, max_tokens, temperature, top_p):
     )
     return response.choices[0].message["content"]
 
+# Open localization json
+with open('localization.json', encoding='utf-8') as localiz:
+    localiz_dict = json.load(localiz)
+
 # Create session_state variables
 if 'cur_language' not in st.session_state:
     st.session_state['selectbox_label'] = 'Language'
@@ -51,19 +56,17 @@ elif st.session_state['cur_language'] in ['Russian', 'Русский']:
     st.session_state['languages'] = ['Русский', 'Английский']
     st.session_state['cur_language_short'] = 'ru'
     
+cur_lang = st.session_state['cur_language_short']  # Variable to shorten name
 
 # Draw UI
 st.selectbox(st.session_state['selectbox_label'], st.session_state['languages'], key='cur_language')
-model_used, max_tokens, temperature, top_p= side_bar()
-input_info_type = input_data(st.session_state['cur_language_short'])
+model_used, max_tokens, temperature, top_p= side_bar(cur_lang, localiz_dict)
+input_info_type = input_data(cur_lang, localiz_dict)
 
 if input_info_type in ['By hand', 'Вручную']:
-    submitted, prompt = hand_submit_job_form(st.session_state['cur_language_short'])
+    submitted, prompt = hand_submit_job_form(cur_lang, localiz_dict)
 elif input_info_type in ['Automatic', 'Автоматически']:
-    submitted, prompt = auto_submit_job_form(st.session_state['cur_language_short'])
-
-
-
+    submitted, prompt = auto_submit_job_form(cur_lang, localiz_dict)
 
 if submitted:
     response = generate_response(prompt,
