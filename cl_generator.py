@@ -1,45 +1,74 @@
 import streamlit as st
+from ui import *
 import numpy as np
-import pandas as pd
 import openai
 import os
 import time
 
-openai.api_key = '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'
+# Get your GPT API key here
+with open('gpt_key.txt', 'r') as txt:
+    key = txt.read()
+    openai.api_key = key  # API key
 
-def get_completion(prompt, model="gpt-3.5-turbo"):
+def generate_response(prompt, model, max_tokens, temperature, top_p):
+    # response = openai.Completion.create(
+    #     model=model,
+    #     # messages=messages,
+    #     prompt=prompt,
+    #     max_tokens=max_tokens,
+    #     temperature=temperature, # a number between 0 and 1 that determines how many creative risks the engine takes when generating text
+    #     top_p=top_p,  # an alternative way to control the originality and creativity of the generated text.
+    #     n=1, # number of predictions to generate
+    #     frequency_penalty=0.3, # a number between 0 and 1. The higher this value the model will make a bigger effort in not repeating itself.
+    #     presence_penalty=0.9 # a number between 0 and 1. The higher this value the model will make a bigger effort in talking about new topics.
+    # )
+    # return response['choices'][0]['text']
     messages = [{"role": "user", "content": prompt}]
     response = openai.ChatCompletion.create(
-        model=model,
+        model="gpt-3.5-turbo",
         messages=messages,
-        temperature=0,
+        temperature=0.99,
+        frequency_penalty=0.3, # a number between 0 and 1. The higher this value the model will make a bigger effort in not repeating itself.
+        presence_penalty=0.9 # a number between 0 and 1. The higher this value the model will make a bigger effort in talking about new topics.
     )
     return response.choices[0].message["content"]
 
-st.title('Generate your own cover letter')
+# Create session_state variables
+if 'cur_language' not in st.session_state:
+    st.session_state['selectbox_label'] = 'Language'
+    st.session_state['cur_language'] = 'English'
+    st.session_state['languages'] = ['English', 'Russian']
+    st.session_state['cur_language_short'] = 'en'
+    st.session_state['edit_disabled'] = True
 
-with st.form(key='my_form_to_submit'): 
-    st.subheader('Job')
-    company_name = st.text_input('Company Name')
-    aplying_role = st.text_input('What role are you aplying for?')
-    emailing_to = st.text_input('Who are you writing to?')
-    st.subheader('Yourself')
-    your_name = st.text_input('What is yor name?')
-    experience_in = st.text_input('I have experience in..')
-    excitement = st.text_input('I am excited about this job because..')
-    passione = st.text_input('I am passionate about..')
-    submitted = st.form_submit_button(label='Submit')
+# Language change
+if st.session_state['cur_language'] in ['English', 'Английский']:
+    st.session_state['selectbox_label'] = 'Language'
+    st.session_state['languages'] = ['English', 'Russian']
+    st.session_state['cur_language_short'] = 'en'
+elif st.session_state['cur_language'] in ['Russian', 'Русский']:
+    st.session_state['selectbox_label'] = 'Язык'
+    st.session_state['languages'] = ['Русский', 'Английский']
+    st.session_state['cur_language_short'] = 'ru'
+    
 
-    prompt = (
-        f"Write a cover letter to {emailing_to} "
-        f"from {your_name} "
-        f"for a {aplying_role} "
-        f"job at {company_name}. " 
-        f"I have experience in {experience_in}. "
-        f"I am excited about the job because {excitement}. "
-        f"I am passionate about {passione}."
-    )
+# Draw UI
+st.selectbox(st.session_state['selectbox_label'], st.session_state['languages'], key='cur_language')
+model_used, max_tokens, temperature, top_p= side_bar()
+input_info_type = input_data(st.session_state['cur_language_short'])
 
-    if submitted:
-        response = get_completion(prompt)
-        st.write(response)
+if input_info_type in ['By hand', 'Вручную']:
+    submitted, prompt = hand_submit_job_form(st.session_state['cur_language_short'])
+elif input_info_type in ['Automatic', 'Автоматически']:
+    submitted, prompt = auto_submit_job_form(st.session_state['cur_language_short'])
+
+
+
+
+if submitted:
+    response = generate_response(prompt,
+                                 model_used,
+                                 max_tokens,
+                                 temperature,
+                                 top_p)
+    st.write(response)
