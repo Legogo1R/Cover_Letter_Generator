@@ -22,7 +22,7 @@ text_classif_data = defaultdict(dict)
 counter = 0
 for filename in os.listdir(html_folder):
 
-    with open(f'{html_folder}{filename}', 'r') as resume:
+    with open(f'{html_folder}{filename}', 'r', encoding="utf8") as resume:
         html = resume.read()
 
     soup = BeautifulSoup(html, features="html.parser")
@@ -58,23 +58,23 @@ for filename in os.listdir(html_folder):
             counter += 1
 
 json_filename = 'text_classif_en.json'
-json_folder = 'resume_dataset/json/'
+json_folder = 'resume_dataset/'
 with open(f'{json_folder}{json_filename}', 'w+', encoding='utf-8') as txt:
         json.dump(text_classif_data, txt, ensure_ascii=False, indent=4)
 
 
-# Translate to Rus
-translator = Translator()
-for id, example in text_classif_data.items():
-    for label, text in example.items():
-        if label =='email':
-                example[label] = text
-        else: 
-            translated = translator.translate(dest='ru', text=text)
-            example[label] = translated.text
+# # Translate to Rus
+# translator = Translator()
+# for id, example in text_classif_data.items():
+#     for label, text in example.items():
+#         if label =='email':
+#                 example[label] = text
+#         else: 
+#             translated = translator.translate(dest='ru', text=text)
+#             example[label] = translated.text
 
-json_filename = 'text_classif_ru.json'
-json_folder = 'resume_dataset/json/'
-with open(f'{json_folder}{json_filename}', 'w+', encoding='utf-8') as txt:
-        json.dump(text_classif_data, txt, ensure_ascii=False, indent=4)
+# json_filename = 'text_classif_ru.json'
+# json_folder = 'resume_dataset/'
+# with open(f'{json_folder}{json_filename}', 'w+', encoding='utf-8') as txt:
+#         json.dump(text_classif_data, txt, ensure_ascii=False, indent=4)
 
