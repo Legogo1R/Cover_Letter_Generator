@@ -1,4 +1,6 @@
 __pycache__
+venv
+resume_dataset
 fill_example.txt
 gpt_key.txt
 html_text_parser.ipynb
